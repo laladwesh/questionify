@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title>Home</title>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+    <div class="container mt-4">
+        <h1><%= question.title %> </h1>
+        <p><%= question.createdAt %></p>
+        <img src="<%= question.coverImageURL %> " width="700px" alt="">
+        <p><%= question.body %></p>
+    </div>
+    <div class="conatiner mt-4">
+        <img src="<%= question.createdBy.profileImageURl %>" width="50px" alt="">
+        <%= question.createdBy.fullName %>
+    </div>
+    <div class="container mt-3">
+        <H1>Comments (<%= comments.length %>)</H1>
+        <% if (locals.user) { %>
+            <form action="/question/comment/<%= question._id %>" method="post">
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="content" placeholder="Enter your Comment">
+                    <button class="btn btn-sm btn-primary" type="submit">Add</button>
+                </div>
+            </form>
+        <% } %>
+        <div class="mt-3">
+            <% comments.forEach(comment => { %>
+                <img src="<%= comment.createdBy. profileImageURl %>" width="50px" alt="">
+                <%= comment.createdBy.fullName %> : <%= comment.createdAt.toString() %> <pre><%= comment.content %>
+                </pre>
+            <% }) %>
+        </div>   
+    </div>
+    <%- include('./partials/script') %>
+</body>
+</html>
